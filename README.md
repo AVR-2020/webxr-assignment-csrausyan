@@ -1,3 +1,4 @@
 # webxr-assignment-csrausyan
 
-test for push
+due to difficulty, cell exploration is no longer become my final project.
+instead, it change into billiard
