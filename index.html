@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cell exploration</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+</head>
+<body>
+    <a-scene id="scene" physics="debug:true">
+        <a-camera position="0 1.5 2">
+            <a-cursor></a-cursor>
+        </a-camera>
+        <a-sphere 
+            position="0 2 0"
+            dynamic-body
+            rotation="0 0 0"
+            scale="1 1 1" 
+            color="yellow" 
+            radius="0.5"
+            wireframe="true">
+        </a-sphere>
+        <a-box 
+            position="0 0 0" 
+            static-body
+            rotation="0 0 0"
+            scale="10 0.1 10"
+            color="#ff0000">
+        </a-box>
+    </a-scene>
+</body>
+</html>
