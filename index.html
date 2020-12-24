@@ -6,6 +6,7 @@
     <title>billiard</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    
 </head>
 <body>
     <script>
@@ -19,7 +20,7 @@
                     let positionObject = el.getAttribute("position");
                     let positionVector = new THREE.Vector3(positionObject.x, positionObject.y, positionObject.z);
                     
-                    let camPosObject = document.querySelector("#cam").getAttribute("position");
+                    let camPosObject = document.querySelector("#rig").getAttribute("position");
                     let camPosVector = new THREE.Vector3(camPosObject.x, camPosObject.y, camPosObject.z);
                     
                     // Besaran direction dipengaruhi oleh jarak kamera ke object
@@ -51,41 +52,122 @@
             }
         });
     </script>
-    <a-scene id="scene" physics="debug:true" stats>
-        <a-camera 
+
+    <a-scene id="scene" physics="debug: true; friction: 4; iteration: 69; restitution: 0.9" stats>
+        <!-- <a-camera 
             id="cam"
-            position="2 2 2"
+            position="0 2 -5"
+            rotation="180 0 0"
         >
             <a-cursor></a-cursor>
-        </a-camera>
-        <a-sphere 
-            position="0 2 0"
-            pushableobject
-            dynamic-body="mass:5;"
-            shadow
-            rotation="0 0 0"
-            scale="1 1 1" 
-            color="yellow" 
-            radius="0.2"
-            wireframe="true"
+        </a-camera> -->
+        <a-entity
+            id="rig"
+            position="0 2 5"
+            rotation="0 180 0"
+            look-controls
+            wasd-controls="
+                acceleration: 300;"
+        >
+            <a-entity
+                id="cam"
+                camera="active: true"
+                
             >
+                <a-cursor></a-cursor>
+            </a-entity>
+        </a-entity>
+        
+        <!-- billiard ball -->
+        <a-sphere  
+            pushableobject 
+            dynamic-body="
+            mass: 10; angularDamping: 0.3; linearDamping: 0.3
+            "
+            radius="0.2"
+            color="white" 
+            shadow 
+            position="0 1.5 3"
+            wireframe="false"
+        >
         </a-sphere>
+
+        <!-- billiard table -->
         <a-box 
             position="0 1 0" 
             static-body
             rotation="0 0 0"
-            scale="10 0.1 10"
-            color="blue"
+            scale="4 0.05 8"
+            color="green"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+        
+        <!-- billiard barrier -->
+        <a-box 
+            position="0 1.2 -4.2" 
+            static-body
+            rotation="0 0 0"
+            scale="3.25 0.05 0.5"
+            color="red"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+        <a-box 
+            position="0 1.2 4.2" 
+            static-body
+            rotation="0 0 0"
+            scale="3.25 0.05 0.5"
+            color="red"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+        
+        <a-box 
+            position="-2.25 1.2 1.85" 
+            static-body
+            rotation="0 0 0"
+            scale="0.5 0.05 2.9"
+            color="red"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+        <a-box 
+            position="2.25 1.2 1.85" 
+            static-body
+            rotation="0 0 0"
+            scale="0.5 0.05 2.9"
+            color="red"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+
+        <a-box 
+            position="-2.25 1.2 -1.85" 
+            static-body
+            rotation="0 0 0"
+            scale="0.5 0.05 2.9"
+            color="red"
+            material="opacity: 1.0; transparent: false"></a-box>
+            >
+        </a-box>
+        <a-box 
+            position="2.25 1.2 -1.85" 
+            static-body
+            rotation="0 0 0"
+            scale="0.5 0.05 2.9"
+            color="red"
             material="opacity: 1.0; transparent: false"></a-box>
             >
         </a-box>
         <!-- <a-assets>
-            <a-asset-item id="cityModel" src="billiard1.gltf"></a-asset-item>
-        </a-assets> -->
-        <!-- <a-entity gltf-model="#cityModel"
-            modify-materials 
+            <a-asset-item id="cityModel" src="assets/billiard1.gltf"></a-asset-item>
+        </a-assets>
+        <a-entity gltf-model="#cityModel"
+            modify-materials  
             static-body>
         </a-entity> -->
+        
         <!-- <a-gltf-model 
             src="billiard1.gltf" 
             shadow="receive: true"
@@ -94,26 +176,20 @@
             modify-materials
             >
         </a-gltf-model> -->
-        <a-assets>
+        
+        <!-- <a-assets>
             <a-asset-item id="billiard-obj" src="assets/billiard1.obj"></a-asset-item>
             <a-asset-item id="billiard-mtl" src="assets/billiard1.mtl"></a-asset-item>
         </a-assets>
         <a-entity 
             obj-model="obj: #billiard-obj; mtl: #billiard-mtl"
             modify-materials
+            wireframe="true"
+            static-object
             friction="0"
             >
-        </a-entity>
-        <a-sphere  
-            pushableobject 
-            dynamic-body="mass:5;" 
-            radius="0.5" 
-            color="green" 
-            shadow 
-            position="0 1.5 -3"
-            wireframe="true"
-        >
-        </a-sphere>
+        </a-entity> -->
+        
     </a-scene>
 </body>
 </html>
