@@ -23,7 +23,7 @@
                     // Besaran direction dipengaruhi oleh jarak kamera ke object
                     let direction = camPosVector.sub(positionVector);
                     direction = direction.normalize();  // Jadi vektor unit
-                    let speed = -10;
+                    let speed = -30;
                     direction = direction.multiplyScalar(speed);
                     // Fungsi di bawah ini ada di Cannon.js
                     el.body.applyImpulse(
@@ -173,7 +173,7 @@
         ></a-sphere>
 
         <a-sphere
-            id="yellow-ball"
+            id="1"
             mixin="billiard-ball"
             radius="0.2"
             color="yellow" 
@@ -181,7 +181,7 @@
             wireframe="false"
         ></a-sphere>
         <a-sphere
-            id="yellow-ball"
+            id="2"
             mixin="billiard-ball"
             radius="0.2"
             color="blue " 
@@ -189,7 +189,7 @@
             wireframe="false"
         ></a-sphere>
         <a-sphere
-            id="yellow-ball"
+            id="3"
             mixin="billiard-ball"
             radius="0.2"
             color="red" 
@@ -197,14 +197,61 @@
             wireframe="false"
         ></a-sphere>
         <a-sphere
-            id="yellow-ball"
+            id="4"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="purple" 
+            position="-0.475 1.5 -1.75"
+            wireframe="false"
+        ></a-sphere>
+        <a-sphere
+            id="5"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="orange" 
+            position="0 1.5 -1.75"
+            wireframe="false"
+        ></a-sphere>
+        <a-sphere
+            id="6"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="green" 
+            position="0.475 1.5 -1.75"
+            wireframe="false"
+        ></a-sphere>
+        <a-sphere
+            id="7"
             mixin="billiard-ball"
             radius="0.2"
             color="red" 
-            position="0.26 1.5 -1.36"
+            position="-0.7 1.5 -2.13"
             wireframe="false"
         ></a-sphere>
-
+        <a-sphere
+            id="8"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="black" 
+            position="-0.260 1.5 -2.13"
+            wireframe="false"
+        ></a-sphere>
+        <a-sphere
+            id="9"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="yellow" 
+            position="0.260 1.5 -2.13"
+            wireframe="false"
+        ></a-sphere>
+        <a-sphere
+            id="10"
+            mixin="billiard-ball"
+            radius="0.2"
+            color="blue" 
+            position="0.7 1.5 -2.13"
+            wireframe="false"
+        ></a-sphere>
         <!-- <a-assets>
             <a-asset-item id="cityModel" src="assets/billiard1.gltf"></a-asset-item>
         </a-assets>
