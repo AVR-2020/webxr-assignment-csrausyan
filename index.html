@@ -6,6 +6,7 @@
     <title>billiard-game</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js "></script>
     
 </head>
 <body>
@@ -123,6 +124,11 @@
                 
             >
                 <a-cursor></a-cursor>
+                <a-gui-cursor id="cursor"
+						  raycaster="objects: [gui-interactable]"
+						  fuse="true" fuse-timeout="2000"
+						  design="ring"
+				>
             </a-entity>
         </a-entity>
         
