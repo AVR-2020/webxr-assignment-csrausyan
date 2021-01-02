@@ -1,0 +1,25 @@
+{
+  "name": "webxr-assignment-csrausyan",
+  "version": "1.0.0",
+  "description": "rva assigment",
+  "main": "index.js",
+  "dependencies": {
+    "aframe-watcher": "^1.4.0",
+    "ejs": "^3.1.5",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AVR-2020/webxr-assignment-csrausyan.git"
+  },
+  "author": "csrausyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AVR-2020/webxr-assignment-csrausyan/issues"
+  },
+  "homepage": "https://github.com/AVR-2020/webxr-assignment-csrausyan#readme"
+}
