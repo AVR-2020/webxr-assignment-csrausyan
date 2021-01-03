@@ -177,7 +177,7 @@
     <a-scene id="scene" 
     physics= "debug: false; friction: 0.01; iteration: 1; restitution: 0.1; gravity: -10;" 
     inspector= "url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
-    stats gui-env state>
+    gui-env state>
         <!-- <a-camera 
             id="cam"
             position="0 2 -5"
@@ -215,7 +215,7 @@
             ></a-mixin>
             <!-- src: assets/epic.png;  -->
         </a-assets>
-        <a-sky color="blue">
+        <a-sky src="https://image.shutterstock.com/image-photo/sky-blue-background-cloud-clear-260nw-1386181790.jpg">
 
         </a-sky>
         <a-entity
@@ -283,6 +283,7 @@
             static-body
             scale="20 0.05 25"
             color="black"
+            opacity="0.2"
             material="opacity: 1.0; transparent: false"></a-box>
             >
         </a-box>
