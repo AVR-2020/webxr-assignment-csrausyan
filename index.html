@@ -13,6 +13,8 @@
     <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/aframe-proxy-event-component/dist/aframe-proxy-event-component.min.js"></script>
 
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
     <script src="scripts/connection.js"></script>
     <script src="scripts/components.js"></script>
 </head>
@@ -45,24 +47,39 @@
         AFRAME.registerComponent("touchobject", {
             init:function() {
                 let el = this.el;
+                let scene = document.querySelector("#scene");
                 el.addEventListener("collide", function(ev) {
                     // console.log("%c" + ev.srcElement.id, "font-size:1em");
-                });
+                    let limit=ev.srcElement.id
+                    let positionObject = el.getAttribute("position");
+                    console.log(el.id);
+                    console.log(positionObject.y);
+                    console.log(limit);
+                    if(positionObject.y <= 1){
+                        console.log("a")
+                        scene.removeChild(el)
+                    }
+                    
+                    // scene.removeChild(el)
+                    // el.destroy()
+                }); 
             }
         });
 
         AFRAME.registerComponent("autospawn", {
-            update:function() {
+            init:function() {
                 var el = this.el;
                 el.addEventListener("collide", function(ev) {
-                    // console.log("%c" + ev.srcElement.id, "font-size:1em");
+                    // console.log("%c" + ev.srcElement.id, "font-size:2em");
+                    // console.log(ev.srcElement.id);
                     el.object3D.position.set(0, 0, 0);
                     // el.setAttribute('position',{x: 0, y: 0, z: 0});
                     let positionObject = el.getAttribute("position");
-                    console.log(el);
-                    console.log(positionObject);
+                    // console.log(el);
+                    // console.log(positionObject);
                     // let positionVector = new THREE.Vector3(positionObject.x, positionObject.y, positionObject.z);
-                }); 
+                });
+                // this.el.removeObject3D('mesh');
             }
         });
 
@@ -106,14 +123,14 @@
         <a-assets>
             <a-mixin
                 id="table-edge1"
-                touchobject
+                
                 static-body
                 scale="3.25 0.05 0.5"
                 material="opacity: 1.0; color: #A52A2A; transparent: false"
             ></a-mixin>
             <a-mixin
                 id="table-edge2"
-                touchobject
+                
                 static-body
                 scale="0.5 0.05 2.9"
                 material="opacity: 1.0; color: #A52A2A; transparent: false" 
@@ -142,6 +159,13 @@
                 camera="active: true"
                 
             >
+                <a-cylinder
+                    id="stick"
+                    scale="0.03 1.6 0.03"
+                    rotation="90 3 0"
+                    position="0.18 -0.25 -0.25"
+                    
+                ></a-cylinder>
                 <a-cursor></a-cursor>
                 <!-- <a-gui-cursor id="cursor"
 						  raycaster="objects: [gui-interactable]"
@@ -154,7 +178,7 @@
         <!-- billiard table -->
         <a-box
             id="table"
-            touchobject
+            
             position="0 1 0" 
             static-body
             scale="4 0.05 8"
@@ -162,9 +186,10 @@
             material="opacity: 1.0; transparent: false"></a-box>
             >
         </a-box>
+        <!-- touchobject -->
         <a-box
             id="table-bot"
-            touchobject
+            
             position="0 0.5 0" 
             static-body
             scale="10 0.05 15"
@@ -172,6 +197,7 @@
             material="opacity: 1.0; transparent: false"></a-box>
             >
         </a-box>
+        <!-- touchobject -->
 
         <!-- billiard barrier -->
         <a-box
@@ -186,6 +212,31 @@
             mixin="table-edge1"></a-box>
             >
         </a-box>
+
+        <a-entity
+            text__btn_down="align:center;baseline:bottom;value:spawn white ball;wrapCount:10;"
+            look-at="#cam"
+            position="1.4 1.3 4.2"
+            scale="0.5 0.5 0.5"
+        ></a-entity>
+        <a-cylinder
+            position="1.4 1.19 4.2"
+            color="white"
+            scale="0.12 0.14 0.12"
+            >    
+        </a-cylinder>
+        <a-entity
+            text__btn_down="align:center;baseline:bottom;value:restart ball;wrapCount:10;"
+            look-at="#cam"
+            position="-1.07 1.3 4.2"
+            scale="0.5 0.5 0.5"
+        ></a-entity>
+        <a-cylinder
+            position="-1.07 1.19 4.2"
+            color="red"
+            scale="0.12 0.14 0.12"
+            >    
+        </a-cylinder>
         
         <a-box
             id="edge-3"
@@ -216,6 +267,7 @@
         <!-- billiard ball -->
         <a-sphere
             id="white-ball"
+            touchobject
             pushableobject autospawn
             mixin="billiard-ball"
             radius="0.2"
@@ -369,15 +421,7 @@
         position="0 2.1 3.25" rotation="-13 0 0" 
         animation__mulai="property: position; to: 0 5 3.25; startEvents: click"
         >
-        <!-- <a-gui-button
-            width="2.5" height="0.75"
-            onclick="testButtonAction" key-code="32"
-            value="test button"
-            margin="0 0 0.05 0"
-            toggle="true"
-        >
-        </a-gui-button> -->
-
+        
             <a-gui-icon-label-button
                 width="2.5" height="0.75"
                 value="play billiard"
@@ -388,6 +432,15 @@
             </a-gui-icon-label-button>
             <!-- icon="social-github" -->
             <!-- onclick="testButtonAction" -->
+
+            <!-- <a-gui-button
+                width="2.5" height="0.75"
+                onclick="testButtonAction" key-code="32"
+                value="test button"
+                margin="0 0 0.05 0"
+                toggle="true"
+            >
+            </a-gui-button> -->
 
             <!-- <a-gui-icon-label-button
                 width="2.5" height="0.75"
@@ -420,6 +473,21 @@
 
     </a-gui-flex-container>
         
+    <!-- <a-gui-flex-container id="main-menu"
+        flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
+        opacity="0.7" width="3.5" height="4.5" scale="0.5 0.5 1"
+        position="0 2.1 3.25" rotation="-13 0 0" 
+        animation__mulai="property: position; to: 0 5 3.25; startEvents: click"
+    >
+        <a-gui-icon-label-button
+            width="2.5" height="0.75"
+            value="play billiard"
+            margin="0 0 0.05 0"
+            proxy-event__satu="
+            event: click; as: mulai; to:#main-menu;"
+        ></a-gui-icon-label-button>
+    </a-gui-flex-container> -->
+
         <!-- <a-gltf-model 
             src="billiard1.gltf" 
             shadow="receive: true"
