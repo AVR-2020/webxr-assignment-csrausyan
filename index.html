@@ -22,6 +22,7 @@
     <script>
 
         var isWhiteBallGone = 0
+        var isWin = 0;
 
         AFRAME.registerComponent("pushableobject", {
             init:function() {
@@ -64,6 +65,10 @@
                             isWhiteBallGone = 1;
                             console.log("white ball gone")
                             console.log(isWhiteBallGone);
+                        }
+                        else{
+                            isWin += 1;
+                            console.log(isWin);
                         }
                         console.log("a")
                         scene.removeChild(el)
@@ -108,6 +113,19 @@
                 let el=this.el;
                 el.addEventListener("click",function(){
                     location.reload(); 
+                });
+            }
+        })
+
+        AFRAME.registerComponent("congrats", {
+            init:function() {
+                let el=this.el;
+                let scene = document.querySelector("#scene"); 
+                // let congr = document.querySelector("#epicgamer");
+                scene.addEventListener("collide", function(){
+                    if(isWin == 15){
+                        el.setAttribute("visible", "true");
+                    }
                 });
             }
         })
@@ -230,6 +248,16 @@
             </a-entity>
         </a-entity>
         
+        <a-image
+            id="epicgamer"
+            src="assets/congrats.jpg"
+            congrats
+            visible="false"
+            look-at="#cam"
+            position="0 2 0.5"
+            scale="3 1.4 1"
+        ></a-image>
+
         <a-entity
             light="type:spot; angle: 31; penumbra: 0.15"
             rotation="-90 0 0"
