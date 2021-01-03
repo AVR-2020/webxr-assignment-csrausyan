@@ -88,7 +88,7 @@
                         let newBall = document.createElement("a-sphere");
                         newBall.setAttribute("id", "white-ball");
                         newBall.setAttribute("mixin", "billiard-ball");
-                        newBall.setAttribute("color", "white");
+                        newBall.setAttribute("material", "color:white; emissive: white; emissiveIntensity: 0.2;");
                         newBall.setAttribute("radius", "0.2");
                         newBall.setAttribute("position", "0 1.5 3");
                         newBall.setAttribute("touchobject", "");
@@ -102,6 +102,15 @@
 
             }
         });
+
+        AFRAME.registerComponent("reset", {
+            init:function() {
+                let el=this.el;
+                el.addEventListener("click",function(){
+                    location.reload(); 
+                });
+            }
+        })
 
         // AFRAME.registerComponent("autospawn", {
         //     init:function() {
@@ -148,7 +157,7 @@
     </script>
 
     <a-scene id="scene" 
-    physics= "debug: true; friction: 0.01; iteration: 1; restitution: 0.1; gravity: -10;" 
+    physics= "debug: false; friction: 0.01; iteration: 1; restitution: 0.1; gravity: -10;" 
     inspector= "url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
     stats gui-env state>
         <!-- <a-camera 
@@ -164,14 +173,14 @@
                 
                 static-body
                 scale="3.25 0.05 0.5"
-                material="opacity: 1.0; color: #A52A2A; transparent: false"
+                material="src: assets/wod.jpg;opacity: 1.0; color: #A52A2A; transparent: false"
             ></a-mixin>
             <a-mixin
                 id="table-edge2"
                 
                 static-body
                 scale="0.5 0.05 2.9"
-                material="opacity: 1.0; color: #A52A2A; transparent: false" 
+                material="src: assets/wod.jpg;opacity: 1.0; color: #A52A2A; transparent: false" 
             ></a-mixin>
             <a-mixin
                 id="billiard-ball"
@@ -182,8 +191,15 @@
                 "
                 shadow 
             ></a-mixin>
+            <a-mixin
+                id="glowing"
+                material="emissive:#ffffff; emissiveIntensity:1"
+            ></a-mixin>
             <!-- src: assets/epic.png;  -->
         </a-assets>
+        <a-sky color="blue">
+
+        </a-sky>
         <a-entity
             id="rig"
             position="0 2 5"
@@ -199,6 +215,7 @@
             >
                 <a-cylinder
                     id="stick"
+                    material="color: brown; emissive:green; emissiveIntensity:0.2"
                     scale="0.03 1.6 0.03"
                     rotation="90 3 0"
                     position="0.18 -0.25 -0.25"
@@ -213,6 +230,12 @@
             </a-entity>
         </a-entity>
         
+        <a-entity
+            light="type:spot; angle: 31; penumbra: 0.15"
+            rotation="-90 0 0"
+            position="0 8.8 0"
+        ></a-entity>
+
         <!-- billiard table -->
         <a-box
             id="table"
@@ -221,7 +244,7 @@
             static-body
             scale="4 0.05 8"
             color="green"
-            material="opacity: 1.0; transparent: false"></a-box>
+            material="src: assets/gras.jpg;opacity: 1.0; transparent: false"></a-box>
             >
         </a-box>
         <!-- touchobject -->
@@ -230,7 +253,7 @@
             
             position="0 0.2 0" 
             static-body
-            scale="10 0.05 15"
+            scale="20 0.05 25"
             color="black"
             material="opacity: 1.0; transparent: false"></a-box>
             >
@@ -261,7 +284,7 @@
             id="spawn-button"
             spawnwhiteball
             position="1.4 1.19 4.2"
-            color="white"
+            material="color:white; emissive: white; emissiveIntensity: 0.2;"
             scale="0.12 0.14 0.12"
             >    
         </a-cylinder>
@@ -274,7 +297,7 @@
         <a-cylinder
             id="reset-button"
             position="-1.07 1.19 4.2"
-            color="red"
+            material="color:red; emissive: red; emissiveIntensity: 0.2;"
             scale="0.12 0.14 0.12"
             >    
         </a-cylinder>
@@ -312,7 +335,7 @@
             pushableobject autospawn
             mixin="billiard-ball"
             radius="0.2"
-            color="white"       
+            material="color:white; emissive: white; emissiveIntensity: 0.2;"
             position="0 1.5 3"
             wireframe="false"
         ></a-sphere>
