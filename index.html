@@ -20,6 +20,9 @@
 </head>
 <body>
     <script>
+
+        var isWhiteBallGone = 0
+
         AFRAME.registerComponent("pushableobject", {
             init:function() {
                 let el = this.el;
@@ -52,10 +55,16 @@
                     // console.log("%c" + ev.srcElement.id, "font-size:1em");
                     let limit=ev.srcElement.id
                     let positionObject = el.getAttribute("position");
-                    console.log(el.id);
-                    console.log(positionObject.y);
-                    console.log(limit);
-                    if(positionObject.y <= 1){
+                    // console.log(el.id);
+                    // console.log(positionObject.y);
+                    // console.log(limit);
+                    
+                    if(positionObject.y <= 0.5){
+                        if(el.id=="white-ball"){
+                            isWhiteBallGone = 1;
+                            console.log("white ball gone")
+                            console.log(isWhiteBallGone);
+                        }
                         console.log("a")
                         scene.removeChild(el)
                     }
@@ -66,32 +75,61 @@
             }
         });
 
-        AFRAME.registerComponent("autospawn", {
+        AFRAME.registerComponent("spawnwhiteball", {
             init:function() {
-                var el = this.el;
-                el.addEventListener("collide", function(ev) {
-                    // console.log("%c" + ev.srcElement.id, "font-size:2em");
-                    // console.log(ev.srcElement.id);
-                    el.object3D.position.set(0, 0, 0);
-                    // el.setAttribute('position',{x: 0, y: 0, z: 0});
-                    let positionObject = el.getAttribute("position");
-                    // console.log(el);
-                    // console.log(positionObject);
-                    // let positionVector = new THREE.Vector3(positionObject.x, positionObject.y, positionObject.z);
+                let el=this.el;
+                let scene = document.querySelector("#scene");
+                // let test = document.querySelector("#white-ball")
+                // console.log(test)
+                el.addEventListener("click",function() {
+                    console.log("button clicked");
+                    console.log(isWhiteBallGone);
+                    if(isWhiteBallGone == 1){
+                        let newBall = document.createElement("a-sphere");
+                        newBall.setAttribute("id", "white-ball");
+                        newBall.setAttribute("mixin", "billiard-ball");
+                        newBall.setAttribute("color", "white");
+                        newBall.setAttribute("radius", "0.2");
+                        newBall.setAttribute("position", "0 1.5 3");
+                        newBall.setAttribute("touchobject", "");
+                        newBall.setAttribute("pushableobject", "");
+                        isWhiteBallGone = 0;
+                        console.log(isWhiteBallGone);
+                        scene.appendChild(newBall);
+                    }
+                    
                 });
-                // this.el.removeObject3D('mesh');
+
             }
         });
 
-        AFRAME.registerState({
-            initialState: {
-                score: 0
-            },
+        // AFRAME.registerComponent("autospawn", {
+        //     init:function() {
+        //         var el = this.el;
+        //         el.addEventListener("collide", function(ev) {
+        //             // console.log("%c" + ev.srcElement.id, "font-size:2em");
+        //             // console.log(ev.srcElement.id);
+        //             el.object3D.position.set(0, 0, 0);
+        //             // el.setAttribute('position',{x: 0, y: 0, z: 0});
+        //             let positionObject = el.getAttribute("position");
+        //             // console.log(el);
+        //             // console.log(positionObject);
+        //             // let positionVector = new THREE.Vector3(positionObject.x, positionObject.y, positionObject.z);
+        //         });
+        //         // this.el.removeObject3D('mesh');
+        //     }
+        // });
 
-            handlers: {
+        // AFRAME.registerState({
+        //     initialState: {
+        //         score: 0
+        //     },
+
+        //     handlers: {
                 
-            }
-        });
+        //     }
+        // });
+
         // AFRAME.registerComponent('modify-materials', {
         //     init: function () {
         //     // Wait for model to load.
@@ -190,7 +228,7 @@
         <a-box
             id="table-bot"
             
-            position="0 0.5 0" 
+            position="0 0.2 0" 
             static-body
             scale="10 0.05 15"
             color="black"
@@ -216,10 +254,12 @@
         <a-entity
             text__btn_down="align:center;baseline:bottom;value:spawn white ball;wrapCount:10;"
             look-at="#cam"
-            position="1.4 1.3 4.2"
+            position="1.4 1.5 4.2"
             scale="0.5 0.5 0.5"
         ></a-entity>
         <a-cylinder
+            id="spawn-button"
+            spawnwhiteball
             position="1.4 1.19 4.2"
             color="white"
             scale="0.12 0.14 0.12"
@@ -228,10 +268,11 @@
         <a-entity
             text__btn_down="align:center;baseline:bottom;value:restart ball;wrapCount:10;"
             look-at="#cam"
-            position="-1.07 1.3 4.2"
+            position="-1.07 1.5 4.2"
             scale="0.5 0.5 0.5"
         ></a-entity>
         <a-cylinder
+            id="reset-button"
             position="-1.07 1.19 4.2"
             color="red"
             scale="0.12 0.14 0.12"
