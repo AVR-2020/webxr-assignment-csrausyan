@@ -259,15 +259,17 @@
         ></a-image>
 
         <a-entity
-            light="type:spot; angle: 31; penumbra: 0.15"
+            id="senter"
+            light="type:point; angle: 31; penumbra: 0.15"
             rotation="-90 0 0"
             position="0 8.8 0"
         ></a-entity>
+        <!-- light="type:spot; angle: 31; penumbra: 0.15" -->
 
         <!-- billiard table -->
         <a-box
             id="table"
-            
+            sound="src: assets/monke.mp3; autoplay: true; loop: true"
             position="0 1 0" 
             static-body
             scale="4 0.05 8"
@@ -278,7 +280,7 @@
         <!-- touchobject -->
         <a-box
             id="table-bot"
-            
+            visible="false"
             position="0 0.2 0" 
             static-body
             scale="20 0.05 25"
@@ -508,23 +510,79 @@
             >
         </a-gui-icon-label-button> -->
 
-        <a-gui-flex-container id="main-menu"
+        <!-- <a-gui-flex-container id="main-menu"
         flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
         opacity="0.7" width="3.5" height="4.5" scale="0.5 0.5 1"
         position="0 2.1 3.25" rotation="-13 0 0" 
         animation__mulai="property: position; to: 0 5 3.25; startEvents: click"
-        >
+        value="hell yea"
+        > -->
         
-            <a-gui-icon-label-button
+        <a-image
+            id="rulessss"
+            src="assets/rules.png"
+
+            position="0 2.1 3.25" rotation="-13 0 0"    
+            scale="3 2.2 1"
+            animation__mulai="property: position; to: 0 5 3.25; startEvents: click; visible:false;" 
+        ></a-image>
+
+        <a-image
+            id="skyyy"
+            src="assets/sk.png"
+            
+            position="0 3.08 -0.53" rotation="0 0 0"    
+            scale="5 1 1"
+            animation__mulai="property: rotation; to: 0 360 0; dur: 6000; loop:true;easing:linear" 
+        ></a-image>
+
+        <a-image
+            id="baka"
+            src="assets/onion.png"
+            look-at="#cam"
+            position="6 13 -0.5" rotation="0 0 0"    
+            scale="5 5 1"
+        ></a-image>
+        <!-- animation__mulai="property: rotation; to: 0 360 0; dur: 6000; loop:true;easing:linear"  -->
+
+            <!-- <a-gui-icon-label-button
                 width="2.5" height="0.75"
                 value="play billiard"
                 margin="0 0 0.05 0"
                 proxy-event__satu="
                 event: click; as: mulai; to:#main-menu;"
             >
-            </a-gui-icon-label-button>
+            </a-gui-icon-label-button> -->
             <!-- icon="social-github" -->
             <!-- onclick="testButtonAction" -->
+
+            <!-- <a-gui-label
+                width="3" height="0.75"
+                opacity="0"
+                font-color="white"
+				value="petunjuk permainan:"
+				margin="0 0 0 0"
+			>
+            </a-gui-label> -->
+
+            <!-- <a-gui-label
+                width="3" height="0.75"
+                opacity="0"
+                font-color="white"
+				value="1. masukkan bola lain"
+				margin="0 0 0 0"
+			>
+            </a-gui-label> -->
+            
+            <!-- <a-image
+                id="rulessss"
+                src="assets/rules.jpg"
+                congrats
+                visible="false"
+                look-at="#cam"
+                position="0 2 0.5"
+                scale="3 1.4 1"
+            ></a-image> -->
 
             <!-- <a-gui-button
                 width="2.5" height="0.75"
@@ -564,7 +622,7 @@
         >
         </a-gui-circle-loader> -->
 
-    </a-gui-flex-container>
+    <!-- </a-gui-flex-container> -->
         
     <!-- <a-gui-flex-container id="main-menu"
         flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
