@@ -22,7 +22,8 @@
     <script>
 
         var isWhiteBallGone = 0
-        var isWin = 0;
+        var isWin = 2;
+        const yes = "remaining billiard balls : ";
 
         AFRAME.registerComponent("pushableobject", {
             init:function() {
@@ -48,10 +49,18 @@
             }
         });
         
+        AFRAME.registerComponent("updatescore", {
+            init:function() {
+                let scene = document.querySelector("#scene");
+                
+            }
+        })
+
         AFRAME.registerComponent("touchobject", {
             init:function() {
                 let el = this.el;
                 let scene = document.querySelector("#scene");
+                let changeme = document.querySelector("#remaining");
                 el.addEventListener("collide", function(ev) {
                     // console.log("%c" + ev.srcElement.id, "font-size:1em");
                     let limit=ev.srcElement.id
@@ -67,8 +76,10 @@
                             console.log(isWhiteBallGone);
                         }
                         else{
-                            isWin += 1;
+                            isWin -= 1;
+                            let wow = yes.concat(isWin)
                             console.log(isWin);
+                            changeme.setAttribute("value", wow);
                         }
                         console.log("a")
                         scene.removeChild(el)
@@ -113,6 +124,7 @@
                 let el=this.el;
                 el.addEventListener("click",function(){
                     location.reload(); 
+                    window.location.reload();
                 });
             }
         })
@@ -123,7 +135,8 @@
                 let scene = document.querySelector("#scene"); 
                 // let congr = document.querySelector("#epicgamer");
                 scene.addEventListener("collide", function(){
-                    if(isWin == 15){
+                    if(isWin == 0){
+                        console.log("you win!");
                         el.setAttribute("visible", "true");
                     }
                 });
@@ -248,6 +261,15 @@
             </a-entity>
         </a-entity>
         
+        <a-entity
+            id="epicgamer2"
+            visible="false"
+            text__btn_down="align:center;baseline:bottom;value:CONGRATULATIONS!;wrapCount:10;"
+            congrats
+            look-at="#cam"
+            position="-3 2 0.5"
+            scale="3 3 0.5"
+        ></a-entity>
         <a-image
             id="epicgamer"
             src="assets/congrats.jpg"
@@ -264,6 +286,14 @@
             rotation="-90 0 0"
             position="0 8.8 0"
         ></a-entity>
+
+        <!-- <a-entity
+            id="cahaya"
+            light="type:point; angle: 31; penumbra: 0.15"
+            rotation="-90 0 0"
+            position="0 8.8 0"
+        ></a-entity> -->
+
         <!-- light="type:spot; angle: 31; penumbra: 0.15" -->
 
         <!-- billiard table -->
@@ -305,6 +335,14 @@
             >
         </a-box>
 
+        <!-- <a-entity
+            id="remaining"
+            text__btn_down="align:center;baseline:bottom;value:remaining balls : 5;wrapCount:10;"
+            look-at="#cam"
+            position="0 1.5 -4.2"
+            scale="3 3 0.5"
+        ></a-entity> -->
+
         <a-entity
             text__btn_down="align:center;baseline:bottom;value:spawn white ball;wrapCount:10;"
             look-at="#cam"
@@ -320,13 +358,14 @@
             >    
         </a-cylinder>
         <a-entity
-            text__btn_down="align:center;baseline:bottom;value:restart ball;wrapCount:10;"
+            text__btn_down="align:center;baseline:bottom;value:restart game;wrapCount:10;"
             look-at="#cam"
             position="-1.07 1.5 4.2"
             scale="0.5 0.5 0.5"
         ></a-entity>
         <a-cylinder
             id="reset-button"
+            reset
             position="-1.07 1.19 4.2"
             material="color:red; emissive: red; emissiveIntensity: 0.2;"
             scale="0.12 0.14 0.12"
@@ -529,11 +568,16 @@
 
         ></a-image>
 
+        <!-- <a-entity
+            gltf-model="assets/awanama.gltf"
+            position="2 2 2"
+        ></a-entity> -->
+
         <a-image
             id="skyyy"
             src="assets/sk.png"
             
-            position="0 3.08 -0.53" rotation="0 0 0"    
+            position="0 4 -0.53" rotation="0 0 0"    
             scale="5 1 1"
             animation__mulai="property: rotation; to: 0 360 0; dur: 6000; loop:true;easing:linear" 
         ></a-image>
